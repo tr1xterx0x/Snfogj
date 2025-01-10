@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet VM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        p {
+            font-size: 1.25rem;
+            margin: 1rem 0;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:active {
+            transform: scale(0.95);
+        }
+        button.pressed {
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hi user, this is VM</h1>
+    <p>He's a pretty fat dude. Unless you go to my school, you will never see him.</p>
+    <p>Say bye to VM one last time before leaving the site.</p>
+    <button id="byeButton">Say Bye</button>
+
+    <script>
+        const button = document.getElementById('byeButton');
+        button.addEventListener('click', () => {
+            button.textContent = "You said bye to VM!";
+            button.classList.add('pressed');
+        });
+    </script>
+</body>
+</html>
