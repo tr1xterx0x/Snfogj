@@ -1,114 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Games</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-        }
-        .game-container {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .game-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .game-card:hover {
-            transform: scale(1.05);
-        }
-        .game-card h2 {
-            margin: 0;
-            font-size: 1.5em;
-        }
-        .game-card button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .game-card button:hover {
-            background-color: #45a049;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Tic-Tac-Toe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      padding-top: 30px;
+    }
+    .info {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+      justify-content: center;
+      margin: auto;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      background-color: white;
+      font-size: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 2px solid #ccc;
+    }
+    #restartBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
+  <div class="info"></div>
+  <div class="board">
+    <div class="cell" data-index="0"></div>
+    <div class="cell" data-index="1"></div>
+    <div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div>
+    <div class="cell" data-index="4"></div>
+    <div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div>
+    <div class="cell" data-index="7"></div>
+    <div class="cell" data-index="8"></div>
+  </div>
+  <button id="restartBtn">Restart</button>
 
-    <h1>Simple Browser Games</h1>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cells = document.querySelectorAll('.cell');
+      const statusDisplay = document.querySelector('.info');
+      const restartButton = document.getElementById('restartBtn');
 
-    <div class="game-container">
-        <div class="game-card" onclick="startGame1()">
-            <h2>Click Me Game</h2>
-            <button>Start Game</button>
-        </div>
-        <div class="game-card" onclick="startGame2()">
-            <h2>Number Guess</h2>
-            <button>Start Game</button>
-        </div>
-        <div class="game-card" onclick="startGame3()">
-            <h2>Color Changer</h2>
-            <button>Start Game</button>
-        </div>
-    </div>
+      let board = ['', '', '', '', '', '', '', '', ''];
+      const huPlayer = 'X';
+      const aiPlayer = 'O';
+      let running = true;
+      let playerCanMove = true;
 
-    <script>
-        // Game 1: Click Me Game
-        function startGame1() {
-            alert("Game: Click Me! Click as fast as you can.");
-            let count = 0;
-            let interval = setInterval(() => {
-                count++;
-                if (count >= 10) {
-                    clearInterval(interval);
-                    alert("You clicked 10 times! Game Over!");
-                }
-            }, 1000);
+      const winCombos = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+      ];
+
+      function startGame() {
+        board = ['', '', '', '', '', '', '', '', ''];
+        running = true;
+        playerCanMove = true;
+        statusDisplay.textContent = 'Your turn (X)';
+        cells.forEach(cell => {
+          cell.textContent = '';
+          cell.style.backgroundColor = 'white';
+          cell.addEventListener('click', handleTurn);
+        });
+      }
+
+      function handleTurn(e) {
+        const idx = e.target.getAttribute('data-index');
+        if (board[idx] === '' && running && playerCanMove) {
+          turn(idx, huPlayer);
+          if (running) {
+            playerCanMove = false;
+            statusDisplay.textContent = 'AI is thinking...';
+            setTimeout(() => {
+              const aiMoveIdx = bestSpot();
+              turn(aiMoveIdx, aiPlayer);
+              playerCanMove = true;
+            }, 500);
+          }
+        }
+      }
+
+      function turn(idx, player) {
+        board[idx] = player;
+        cells[idx].textContent = player;
+        let gameWon = checkWin(board, player);
+        if (gameWon) gameOver(gameWon);
+        else if (board.filter(s => s === '').length === 0) {
+          running = false;
+          statusDisplay.textContent = 'It\'s a draw!';
+        } else {
+          statusDisplay.textContent = (player === huPlayer) ? 'AI\'s turn (O)' : 'Your turn (X)';
+        }
+      }
+
+      function checkWin(board, player) {
+        let plays = board.reduce((a, e, i) =>
+          (e === player) ? a.concat(i) : a, []);
+        let gameWon = null;
+        for (let [index, combo] of winCombos.entries()) {
+          if (combo.every(elem => plays.includes(elem))) {
+            gameWon = { index, player };
+            break;
+          }
+        }
+        return gameWon;
+      }
+
+      function gameOver(gameWon) {
+        running = false;
+        for (let idx of winCombos[gameWon.index]) {
+          cells[idx].style.backgroundColor = gameWon.player === huPlayer ? '#9fd3c7' : '#f7a072';
+        }
+        statusDisplay.textContent =
+          gameWon.player === huPlayer ? 'You win!' : 'AI wins!';
+      }
+
+      function emptySquares(boardRef = board) {
+        return boardRef.map((s, i) => s === '' ? i : null).filter(v => v !== null);
+      }
+
+      function bestSpot() {
+        return minimax(board, aiPlayer).index;
+      }
+
+      function minimax(newBoard, player) {
+        let availSpots = emptySquares(newBoard.slice());
+
+        if (checkWin(newBoard, huPlayer)) {
+          return { score: -10 };
+        } else if (checkWin(newBoard, aiPlayer)) {
+          return { score: 10 };
+        } else if (availSpots.length === 0) {
+          return { score: 0 };
         }
 
-        // Game 2: Number Guessing
-        function startGame2() {
-            let number = Math.floor(Math.random() * 100) + 1;
-            let guess = prompt("Guess a number between 1 and 100");
-            while (parseInt(guess) !== number) {
-                if (parseInt(guess) > number) {
-                    guess = prompt("Too high! Guess again.");
-                } else if (parseInt(guess) < number) {
-                    guess = prompt("Too low! Guess again.");
-                }
+        let moves = [];
+        for (let i = 0; i < availSpots.length; i++) {
+          let move = {};
+          move.index = availSpots[i];
+          newBoard[availSpots[i]] = player;
+
+          if (player === aiPlayer) {
+            move.score = minimax(newBoard, huPlayer).score;
+          } else {
+            move.score = minimax(newBoard, aiPlayer).score;
+          }
+
+          newBoard[availSpots[i]] = '';
+          moves.push(move);
+        }
+
+        let bestMove;
+        if (player === aiPlayer) {
+          let bestScore = -Infinity;
+          for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score > bestScore) {
+              bestScore = moves[i].score;
+              bestMove = i;
             }
-            alert("Congratulations! You guessed the correct number.");
+          }
+        } else {
+          let bestScore = Infinity;
+          for (let i = 0; i < moves.length; i++) {
+            if (moves[i].score < bestScore) {
+              bestScore = moves[i].score;
+              bestMove = i;
+            }
+          }
         }
 
-        // Game 3: Color Changer
-        function startGame3() {
-            let body = document.body;
-            let colors = ['#ff6347', '#4caf50', '#1e90ff', '#ff69b4', '#ff4500'];
-            let index = 0;
-            setInterval(() => {
-                body.style.backgroundColor = colors[index];
-                index = (index + 1) % colors.length;
-            }, 1000);
-        }
-    </script>
+        return moves[bestMove];
+      }
 
+      restartButton.addEventListener('click', startGame);
+      startGame();
+    });
+  </script>
 </body>
 </html>
+
