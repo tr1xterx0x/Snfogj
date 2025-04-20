@@ -3,59 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet VM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Simple Games</title>
     <style>
         body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
         }
         h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
         }
-        p {
-            font-size: 1.25rem;
-            margin: 1rem 0;
+        .game-container {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
-        button {
-            background-color: #ff6b6b;
+        .game-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+        .game-card h2 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .game-card button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
-            padding: 0.75rem 1.5rem;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        button:active {
-            transform: scale(0.95);
-        }
-        button.pressed {
-            background-color: #4caf50;
+        .game-card button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>Hi user, this is VM</h1>
-    <p>He's a pretty fat dude. Unless you go to my school, you will never see him.</p>
-    <p>Say bye to VM one last time before leaving the site.</p>
-    <button id="byeButton">Say Bye</button>
+
+    <h1>Simple Browser Games</h1>
+
+    <div class="game-container">
+        <div class="game-card" onclick="startGame1()">
+            <h2>Click Me Game</h2>
+            <button>Start Game</button>
+        </div>
+        <div class="game-card" onclick="startGame2()">
+            <h2>Number Guess</h2>
+            <button>Start Game</button>
+        </div>
+        <div class="game-card" onclick="startGame3()">
+            <h2>Color Changer</h2>
+            <button>Start Game</button>
+        </div>
+    </div>
 
     <script>
-        const button = document.getElementById('byeButton');
-        button.addEventListener('click', () => {
-            button.textContent = "You said bye to VM!";
-            button.classList.add('pressed');
-        });
+        // Game 1: Click Me Game
+        function startGame1() {
+            alert("Game: Click Me! Click as fast as you can.");
+            let count = 0;
+            let interval = setInterval(() => {
+                count++;
+                if (count >= 10) {
+                    clearInterval(interval);
+                    alert("You clicked 10 times! Game Over!");
+                }
+            }, 1000);
+        }
+
+        // Game 2: Number Guessing
+        function startGame2() {
+            let number = Math.floor(Math.random() * 100) + 1;
+            let guess = prompt("Guess a number between 1 and 100");
+            while (parseInt(guess) !== number) {
+                if (parseInt(guess) > number) {
+                    guess = prompt("Too high! Guess again.");
+                } else if (parseInt(guess) < number) {
+                    guess = prompt("Too low! Guess again.");
+                }
+            }
+            alert("Congratulations! You guessed the correct number.");
+        }
+
+        // Game 3: Color Changer
+        function startGame3() {
+            let body = document.body;
+            let colors = ['#ff6347', '#4caf50', '#1e90ff', '#ff69b4', '#ff4500'];
+            let index = 0;
+            setInterval(() => {
+                body.style.backgroundColor = colors[index];
+                index = (index + 1) % colors.length;
+            }, 1000);
+        }
     </script>
+
 </body>
 </html>
