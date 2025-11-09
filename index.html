@@ -2,25 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tic-Tac-Toe</title>
+  <title>ChillBoard Forums - Post by mango123</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f0f0f0;
-      padding-top: 30px;
+      background-color: #e5e5e5;
+      margin: 0;
+      padding: 0;
     }
-    .info {
+
+    .forum-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 10px 40px;
+    }
+
+    .forum-header {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 15px 20px;
+      border-radius: 6px;
       font-size: 24px;
+      font-weight: bold;
       margin-bottom: 20px;
     }
+
+    .forum-subheader {
+      color: #555;
+      font-size: 14px;
+      margin: 5px 2px 20px;
+    }
+
+    .thread-title {
+      background: #ffffff;
+      padding: 12px 16px;
+      border-radius: 6px 6px 0 0;
+      border: 1px solid #ccc;
+      border-bottom: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .thread-title span.tag {
+      background: #3498db;
+      color: white;
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-right: 8px;
+      text-transform: uppercase;
+    }
+
+    .post-card {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 0 0 6px 6px;
+      padding: 16px;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #777;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .post-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #3498db;
+    }
+
+    .username {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .post-content {
+      text-align: center;
+    }
+
+    /* Tic-Tac-Toe styles */
+    .info {
+      font-size: 20px;
+      margin: 15px 0 15px;
+    }
+
     .board {
       display: grid;
       grid-template-columns: repeat(3, 100px);
       grid-gap: 5px;
       justify-content: center;
-      margin: auto;
+      margin: 0 auto;
     }
+
     .cell {
       width: 100px;
       height: 100px;
@@ -32,27 +119,127 @@
       cursor: pointer;
       border: 2px solid #ccc;
     }
+
     #restartBtn {
       margin-top: 20px;
       padding: 10px 20px;
       font-size: 18px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 1px solid #3498db;
+      background: #3498db;
+      color: white;
+    }
+
+    #restartBtn:hover {
+      background: #2874a6;
+    }
+
+    .zwergytyraan-section {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      background: #fdfdfd;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .zwergytyraan-section img {
+      border-radius: 50%;
+      margin-top: 10px;
+      border: 3px solid #3498db;
+    }
+
+    .zwergytyraan-section h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .zwergytyraan-section p {
+      text-align: left;
+      line-height: 1.6;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+
+    .forum-footer-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 16px;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <div class="info"></div>
-  <div class="board">
-    <div class="cell" data-index="0"></div>
-    <div class="cell" data-index="1"></div>
-    <div class="cell" data-index="2"></div>
-    <div class="cell" data-index="3"></div>
-    <div class="cell" data-index="4"></div>
-    <div class="cell" data-index="5"></div>
-    <div class="cell" data-index="6"></div>
-    <div class="cell" data-index="7"></div>
-    <div class="cell" data-index="8"></div>
+
+  <div class="forum-wrapper">
+    <div class="forum-header">ChillBoard Forums</div>
+    <div class="forum-subheader">
+      Viewing thread in <strong>#showcase</strong> &raquo; Created by <strong>mango123</strong>
+    </div>
+
+    <div class="thread-title">
+      <span class="tag">Showcase</span>
+      [HTML] Zwergytyraan Tic-Tac-Toe (he is a chill guy)
+    </div>
+
+    <div class="post-card">
+      <div class="post-meta">
+        <div class="post-meta-left">
+          <img class="avatar" src="https://cdn.discordapp.com/avatars/1183011319750873109/fe25e004c0a21fc78c39b0a476972b28.webp?size=80" alt="Zwergytyraan avatar">
+          <div>
+            <div class="username">mango123</div>
+            <div>Posted just now • 1st post in thread</div>
+          </div>
+        </div>
+        <div class="post-meta-right">
+          #1
+        </div>
+      </div>
+
+      <div class="post-content">
+
+        <div class="zwergytyraan-section">
+          <h1>This is Zwergytyraan</h1>
+          <img src="https://cdn.discordapp.com/avatars/1183011319750873109/fe25e004c0a21fc78c39b0a476972b28.webp?size=160" alt="Zwergytyraan">
+          <p>
+            Zwergytyraan is, without a doubt, one of the chillest people around. He doesn’t rush things — he takes life one calm step at a time. 
+            While the world spirals into chaos over deadlines, notifications, and unnecessary drama, Zwergytyraan just sits back, 
+            sips his metaphorical iced tea, and lets everything flow as it should. He’s the kind of guy who doesn’t get stressed 
+            when the Wi-Fi drops — he just opens Tic-Tac-Toe and beats the AI with style.
+          </p>
+          <p>
+            What makes Zwergytyraan so unique is that he’s effortlessly cool without even trying. He doesn’t chase trends; trends chase him. 
+            Whether he’s playing games, chatting with friends, or just vibing in silence, he radiates an energy that says, 
+            “Yeah, everything’s gonna be alright.” His calm confidence makes people around him feel grounded, 
+            and his sense of humor adds just the right balance to the mix. 
+          </p>
+          <p>
+            In a world full of noise, Zwergytyraan is the quiet rhythm that keeps everything balanced. 
+            He’s not here to compete, he’s here to chill — and that’s exactly why everyone loves him.
+          </p>
+        </div>
+
+        <div class="info"></div>
+        <div class="board">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+        <button id="restartBtn">Restart</button>
+
+        <div class="forum-footer-note">
+          Edited by <strong>mango123</strong>: added unbeatable AI so Zwergytyraan can chill while still winning.
+        </div>
+      </div>
+    </div>
   </div>
-  <button id="restartBtn">Restart</button>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -104,8 +291,9 @@
         board[idx] = player;
         cells[idx].textContent = player;
         let gameWon = checkWin(board, player);
-        if (gameWon) gameOver(gameWon);
-        else if (board.filter(s => s === '').length === 0) {
+        if (gameWon) {
+          gameOver(gameWon);
+        } else if (board.filter(s => s === '').length === 0) {
           running = false;
           statusDisplay.textContent = 'It\'s a draw!';
         } else {
@@ -113,8 +301,8 @@
         }
       }
 
-      function checkWin(board, player) {
-        let plays = board.reduce((a, e, i) =>
+      function checkWin(boardState, player) {
+        let plays = boardState.reduce((a, e, i) =>
           (e === player) ? a.concat(i) : a, []);
         let gameWon = null;
         for (let [index, combo] of winCombos.entries()) {
@@ -129,22 +317,25 @@
       function gameOver(gameWon) {
         running = false;
         for (let idx of winCombos[gameWon.index]) {
-          cells[idx].style.backgroundColor = gameWon.player === huPlayer ? '#9fd3c7' : '#f7a072';
+          cells[idx].style.backgroundColor =
+            gameWon.player === huPlayer ? '#9fd3c7' : '#f7a072';
         }
         statusDisplay.textContent =
           gameWon.player === huPlayer ? 'You win!' : 'AI wins!';
       }
 
       function emptySquares(boardRef = board) {
-        return boardRef.map((s, i) => s === '' ? i : null).filter(v => v !== null);
+        return boardRef
+          .map((s, i) => s === '' ? i : null)
+          .filter(v => v !== null);
       }
 
       function bestSpot() {
-        return minimax(board, aiPlayer).index;
+        return minimax(board.slice(), aiPlayer).index;
       }
 
       function minimax(newBoard, player) {
-        let availSpots = emptySquares(newBoard.slice());
+        let availSpots = emptySquares(newBoard);
 
         if (checkWin(newBoard, huPlayer)) {
           return { score: -10 };
@@ -198,4 +389,3 @@
   </script>
 </body>
 </html>
-
